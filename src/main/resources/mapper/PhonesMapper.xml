@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.PhonesMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Phones">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="image" property="image"/>
+		<result column="kucun" property="kucun"/>
+		<result column="price" property="price"/>
+		<result column="weight" property="weight"/>
+		<result column="content" property="content"/>
+		<result column="categoryid" property="categoryid"/>
+		<result column="color" property="color"/>
+		<result column="version" property="version"/>
+		<result column="title" property="title"/>
+		<result column="year" property="year"/>
+		<result column="wuxian" property="wuxian"/>
+		<result column="chicun" property="chicun"/>
+		<result column="nfc" property="nfc"/>
+		<result column="isshow" property="isshow"/>
+		<result column="pool" property="pool"/>
+		<result column="icon" property="icon"/>
+		<result column="state" property="state"/>
+		<result column="creatime" property="creatime"/>
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+        id, name, image, kucun, price, weight, content, categoryid, color, version, title, year, wuxian, chicun, nfc, typec, pool, icon, state, creatime
+    </sql>
+
+	<select id="getSceneryList" resultType="com.isoft.pojo.vo.PhonesVo">
+		SELECT
+		f.*,
+		c.categoryname
+		FROM
+		phones f
+		LEFT JOIN category c ON f.categoryid = c.id
+		<where>
+			<if test="categoryId != 0">
+				and f.categoryid = #{categoryId}
+			</if>
+			and (f.state = 1 || f.state =3)
+		</where>
+		ORDER BY
+		f.creatime DESC
+	</select>
+
+	<select id="getFourIcon" resultType="com.isoft.pojo.vo.PhonesVo">
+		SELECT
+			f.*,
+			c.categoryname
+		FROM
+			phones f
+			LEFT JOIN category c ON f.categoryid = c.id
+		WHERE
+			f.isshow is not null
+			AND f.state = 1
+		ORDER BY
+			f.isshow DESC
+		limit 4
+    </select>
+
+	<select id="getSceneryInfo" resultType="com.isoft.pojo.vo.PhonesVo">
+        SELECT
+            f.*,
+            c.categoryname
+        FROM
+            phones f
+        LEFT JOIN category c ON f.categoryid = c.id
+        WHERE f.state = 1 and f.id = #{id}
+    </select>
+
+
+	<select id="getSearchList" resultType="com.isoft.pojo.vo.PhonesVo">
+		SELECT
+			f.*,
+			c.categoryname
+		FROM
+			phones f
+		LEFT JOIN category c ON f.categoryid = c.id
+		WHERE f.state = 1
+			and (
+			c.categoryname like concat('%',#{searchText},'%') ||
+			f.name like concat('%',#{searchText},'%') ||
+			f.color like concat('%',#{searchText},'%') ||
+			f.version like concat('%',#{searchText},'%') ||
+			f.content like concat('%',#{searchText},'%')
+			)
+		ORDER BY
+			f.creatime DESC
+	</select>
+
+
+	<select id="getInfoList6" resultType="com.isoft.pojo.entity.Phones">
+		SELECT
+			f.*,
+			c.categoryname
+		FROM
+			phones f
+			LEFT JOIN category c ON f.categoryid = c.id
+		WHERE
+			f.state = 1
+			AND f.id IN (
+				SELECT
+					o.flowerid
+				FROM
+					orders o
+				WHERE
+					o.flowerid IN ( SELECT id FROM phones p WHERE p.categoryid = #{categoryid} )
+				GROUP BY
+					o.flowerid
+				ORDER BY
+					count( 1 ) DESC
+			)
+			LIMIT 6
+	</select>
+</mapper>

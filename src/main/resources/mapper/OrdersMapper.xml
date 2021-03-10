@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.OrdersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Orders">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="userid" property="userid" />
+        <result column="flowerid" property="flowerid" />
+        <result column="name" property="name" />
+        <result column="phone" property="phone" />
+        <result column="address" property="address" />
+        <result column="price" property="price" />
+        <result column="amount" property="amount" />
+        <result column="note" property="note" />
+        <result column="creatime" property="creatime" />
+        <result column="state" property="state" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, type, userid, flowerid, name, phone, address, price, amount, note, creatime, state
+    </sql>
+
+    <select id="selCateList" resultType="com.isoft.pojo.vo.OrderVo">
+       select
+            o.*,
+            u.uname uname,
+            u.image image,
+            u.phone uphone
+        from orders o
+        left join user u on u.id = o.userid
+        where o.state = 1
+        ORDER BY
+	        o.creatime DESC
+    </select>
+
+</mapper>

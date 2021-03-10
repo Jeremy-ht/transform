@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.FlowersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Flowers">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="content" property="content" />
+        <result column="origin" property="origin" />
+        <result column="image" property="image" />
+        <result column="kucun" property="kucun" />
+        <result column="price" property="price" />
+        <result column="categoryid" property="categoryid" />
+        <result column="description" property="description" />
+        <result column="state" property="state" />
+        <result column="creatime" property="creatime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, content, origin, image, kucun, price, categoryid, description, state, creatime
+    </sql>
+</mapper>

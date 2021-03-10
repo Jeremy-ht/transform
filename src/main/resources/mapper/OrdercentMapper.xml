@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.OrdercentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Ordercent">
+        <id column="id" property="id"/>
+        <result column="orderid" property="orderid"/>
+        <result column="flowerid" property="flowerid"/>
+        <result column="amount" property="amount"/>
+        <result column="state" property="state"/>
+        <result column="creatime" property="creatime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, orderid, flowerid, amount, state, creatime
+    </sql>
+
+    <select id="getEchartsOrder" resultType="com.isoft.pojo.vo.EchartsVo">
+        SELECT
+            t.monthNo AS name,
+            COUNT( 1 ) AS value
+        FROM
+            (
+            SELECT
+                MONTH ( a.creatime ) AS monthNo,
+                YEAR ( a.creatime ) AS myYear,
+                a.id AS id
+            FROM
+                orders a
+            ) AS t
+        WHERE
+            t.myYear = '2021'
+        GROUP BY
+            t.monthNo
+    </select>
+
+    <select id="getEchartsCate" resultType="com.isoft.pojo.vo.EchartsVo">
+        SELECT
+            count(*) value,
+            c.categoryname name
+        FROM
+            category c
+            LEFT JOIN phones f ON f.categoryid = c.id
+        GROUP BY
+            f.categoryid
+    </select>
+</mapper>

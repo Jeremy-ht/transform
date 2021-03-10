@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.ScencyLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.ScencyLog">
+        <id column="id" property="id" />
+        <result column="userid" property="userid" />
+        <result column="creatime" property="creatime" />
+        <result column="method" property="method" />
+        <result column="useragent" property="useragent" />
+        <result column="userip" property="userip" />
+        <result column="url" property="url" />
+        <result column="optcomment" property="optcomment" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userid, creatime, method, useragent, userip, url, optcomment
+    </sql>
+
+</mapper>

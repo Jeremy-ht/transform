@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.CategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Category">
+        <id column="id" property="id"/>
+        <result column="categoryname" property="categoryname"/>
+        <result column="state" property="state"/>
+        <result column="creatime" property="creatime"/>
+        <result column="creator" property="creator"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, categoryname, state, creatime, creator
+    </sql>
+
+
+    <select id="selCateList" resultType="com.isoft.pojo.vo.CategoryVo">
+        SELECT
+            c.*
+        FROM
+            category c
+        WHERE
+            c.state = 1
+        ORDER BY
+            creatime DESC
+    </select>
+
+</mapper>

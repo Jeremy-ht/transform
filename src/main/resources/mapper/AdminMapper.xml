@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.AdminMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Admin">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="salt" property="salt"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="icon" property="icon"/>
+        <result column="creatime" property="creatime"/>
+        <result column="creator" property="creator"/>
+        <result column="state" property="state"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, username, password, name, salt, phone, email, icon, creatime, creator, state
+    </sql>
+
+    <select id="selCateList" resultType="com.isoft.pojo.vo.AdminVo">
+        SELECT
+            a.id,
+            a.username,
+            a.name,
+            a.phone,
+            a.email,
+            a.icon,
+            a.creatime,
+            a.creator,
+            a.sex,
+            sa.username AS creatorName
+        FROM
+            admin a
+            INNER JOIN admin sa ON a.creator = sa.id
+        WHERE
+            a.state = 1
+        ORDER BY
+	        a.creatime DESC
+    </select>
+
+</mapper>

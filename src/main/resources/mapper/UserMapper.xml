@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.User">
+        <id column="id" property="id"/>
+        <result column="uname" property="uname"/>
+        <result column="salt" property="salt"/>
+        <result column="pwd" property="pwd"/>
+        <result column="loginway" property="loginway"/>
+        <result column="state" property="state"/>
+        <result column="sex" property="sex"/>
+        <result column="image" property="image"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="creatime" property="creatime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, uname, salt, pwd, loginway, state, sex, image, phone, email, creatime
+    </sql>
+
+    <select id="selCateList" resultType="com.isoft.pojo.entity.User">
+        SELECT
+           id, uname, loginway, sex, image, phone, email, creatime,state
+        FROM
+            user
+        WHERE
+            state = 1 or state = 2
+        ORDER BY
+	       	creatime DESC
+    </select>
+
+    <update id="updAbleUserById">
+        update user set state = #{state} where id = #{id}
+    </update>
+
+</mapper>

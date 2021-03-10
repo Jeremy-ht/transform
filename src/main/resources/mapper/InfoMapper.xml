@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.InfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Info">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="sex" property="sex" />
+        <result column="age" property="age" />
+        <result column="nativeplace" property="nativeplace" />
+        <result column="marriage" property="marriage" />
+        <result column="currentstate" property="currentstate" />
+        <result column="height" property="height" />
+        <result column="weight" property="weight" />
+        <result column="workexper" property="workexper" />
+        <result column="salary" property="salary" />
+        <result column="noroom" property="noroom" />
+        <result column="introduction" property="introduction" />
+        <result column="creatime" property="creatime" />
+        <result column="state" property="state" />
+        <result column="creator" property="creator" />
+        <result column="image" property="image" />
+        <result column="categoryid" property="categoryid" />
+        <result column="phone" property="phone" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, sex, age, nativeplace, marriage, currentstate, height, weight, workexper, salary, noroom, introduction, creatime, state, creator
+    </sql>
+
+    <select id="getInfoDeatilById" resultType="com.isoft.pojo.entity.Info">
+        SELECT
+            d.*,
+            c.categoryname,
+            a.username
+        FROM
+            detail d
+            LEFT JOIN category c ON d.categoryid = c.categoryid
+            LEFT JOIN admin a ON a.id = d.creator
+        WHERE
+            d.id = #{id}
+            and d.state = 1
+            and d.draft = 1
+    </select>
+
+    <select id="getInfoList" resultType="com.isoft.pojo.vo.InfoVo">
+        SELECT
+        i.*,
+        c.categoryname categoryname,
+        a.username username
+        FROM
+        info i
+        LEFT JOIN category c ON i.categoryid = c.id
+        LEFT JOIN admin a ON a.id = i.creator
+        <where>
+            <if test="id != 0">
+                and i.categoryid = #{id}
+            </if>
+            and i.state = 1
+        </where>
+        ORDER BY
+        i.creatime DESC
+    </select>
+
+    <select id="getTopList" resultType="com.isoft.pojo.vo.InfoVo">
+     SELECT
+        i.*,
+        c.categoryname categoryname,
+        a.username username
+    FROM
+        info i
+        LEFT JOIN category c ON i.categoryid = c.id
+        LEFT JOIN admin a ON a.id = i.creator
+    WHERE
+        i.state = 1
+        AND i.id IN ( SELECT infoid FROM COMMENT GROUP BY infoid ORDER BY count( infoid ) DESC )
+    LIMIT 0,4
+    </select>
+
+    <select id="getTopListBy" resultType="com.isoft.pojo.vo.InfoVo">
+        SELECT
+        i.*,
+        c.categoryname categoryname,
+        a.username username
+        FROM
+        info i
+        LEFT JOIN category c ON i.categoryid = c.id
+        LEFT JOIN admin a ON a.id = i.creator
+        WHERE i.state = 1
+        ORDER BY
+        i.creatime asc
+        limit #{i}
+    </select>
+</mapper>

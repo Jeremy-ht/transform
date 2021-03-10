@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.SkillsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Skills">
+        <id column="id" property="id" />
+        <result column="infoid" property="infoid" />
+        <result column="skillid" property="skillid" />
+        <result column="skillname" property="skillname" />
+        <result column="state" property="state" />
+        <result column="creatime" property="creatime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, infoid, skillid, skillname, state, creatime
+    </sql>
+
+</mapper>

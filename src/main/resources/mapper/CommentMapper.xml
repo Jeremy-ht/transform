@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.CommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Comment">
+        <id column="id" property="id"/>
+        <result column="categoryid" property="categoryid"/>
+        <result column="userid" property="userid"/>
+        <result column="commentary" property="commentary"/>
+        <result column="state" property="state"/>
+        <result column="creatime" property="creatime"/>
+        <result column="detailid" property="detailid"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, categoryid, userid, detailid, commentary, state, creatime
+    </sql>
+
+    <!--获取新闻评论列表-->
+    <select id="getCommentList" resultType="com.isoft.pojo.vo.CommentVo">
+        SELECT
+        c.*,
+        u.uname uname,
+        u.image uimage,
+        i.name name,
+        i.image image,
+        ca.categoryname
+        FROM
+        COMMENT c
+        LEFT JOIN USER u ON u.id = c.userid
+        LEFT JOIN info i ON i.id = c.infoid
+        LEFT JOIN category ca ON ca.id = i.categoryid
+        <where>
+            c.state = 1
+            <if test="infoid != 0">
+                and c.infoid = #{infoid}
+            </if>
+        </where>
+        order BY
+        c.creatime DESC
+    </select>
+
+</mapper>

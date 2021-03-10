@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.ReservationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Reservation">
+        <id column="id" property="id"/>
+        <result column="userid" property="userid"/>
+        <result column="infoid" property="infoid"/>
+        <result column="reservationtime" property="reservationtime"/>
+        <result column="creatime" property="creatime"/>
+        <result column="state" property="state"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userid, infoid, reservationtime, creatime, state
+    </sql>
+
+    <select id="getYYinfo" resultType="com.isoft.pojo.vo.ReservationVo">
+        SELECT r.creatime reservationtime,
+        r.iscomment iscomment, i.name name, i.id id,
+        c.categoryname categoryname FROM reservation r
+        LEFT JOIN info i on i.id = r.infoid
+        LEFT JOIN category c on c.id = i.categoryid
+        WHERE userid = #{userid}
+        order by r.creatime desc
+    </select>
+
+
+    <select id="getReservationList" resultType="com.isoft.pojo.vo.ReservationVo2">
+       SELECT
+            i.NAME name,
+            i.phone phone,
+            i.image image,
+            u.uname uname,
+            u.phone uphone,
+            r.creatime creatime,
+            r.iscomment iscomment,
+            r.id id
+        FROM
+            reservation r
+            LEFT JOIN USER u ON u.id = r.userid
+            LEFT JOIN info i ON i.id = r.infoid
+        WHERE
+            r.state = 1
+        ORDER BY
+            r.creatime desc
+    </select>
+
+</mapper>

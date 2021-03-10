@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.CartMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Cart">
+        <id column="id" property="id"/>
+        <result column="userid" property="userid"/>
+        <result column="flowerid" property="flowerid"/>
+        <result column="creatime" property="creatime"/>
+        <result column="amount" property="amount"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userid, flowerid, creatime, amount
+    </sql>
+
+    <select id="list1" resultType="com.isoft.pojo.vo.CartVo">
+        SELECT
+            c.*,
+            f.name name,
+            f.image image,
+            f.price price
+        FROM
+            cart c
+            LEFT JOIN phones f ON f.id = c.flowerid
+        WHERE
+            c.state = 1
+            AND c.userid = #{id}
+        ORDER BY
+            c.creatime DESC
+    </select>
+
+</mapper>
