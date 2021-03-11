@@ -65,4 +65,9 @@ public class User implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime creatime;
+
+    private String cph;
+    private String color;
+    private String carimage;
+
 }

@@ -45,13 +45,13 @@ public class UserController {
 		if (org.apache.commons.lang3.StringUtils.isBlank(user.getPhone())) {
 			return ResponseData.error().message("手机号不能为空");
 		}
-		user.setImage("http://service.szhtkj.com.cn/SzhtShop/uploads/default/avatar/userimg.png");
+		user.setImage("");
 		String salt = CommonUtil.getRandomSixNum();
 		user.setSalt(salt);
 		MD5Code md5Code = new MD5Code();
 		String aaaaa = md5Code.getMD5ofStr(user.getPwd() + salt);
 		user.setPwd(aaaaa);
-		user.setLoginway(0);    // 0-密码，1-手机号
+		user.setLoginway(0);
 		return userService.save(user) ? ResponseData.success().message("恭喜你，注册成功！").data("data", user.getUname())
 				: ResponseData.error().code(ResultCodeEnum.FAILED.getCode()).message("注册失败了请重试!");
 	}
@@ -167,13 +167,6 @@ public class UserController {
 		return ResponseData.error().message("获取用户列表失败！");
 	}
 
-
-	@GetMapping("/getUserListByCategory/{id}")
-	public ResponseData getUserListByCategory(@PathVariable("id") Integer id) {
-//        userService.getUserListByCategory(id);
-
-		return ResponseData.error().message("获取用户列表失败！");
-	}
 
 	/**
 	 * 搜索

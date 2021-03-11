@@ -10,7 +10,7 @@ import com.isoft.pojo.vo.OrderVo;
  *  Mapper 接口
  * </p>
  *
- * @author ${author}
+
 
  */
 public interface OrdersMapper extends BaseMapper<Orders> {

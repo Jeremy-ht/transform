@@ -1,9 +1,8 @@
 package com.isoft.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.isoft.pojo.entity.Orders;
+import com.isoft.pojo.entity.Infos;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.isoft.pojo.vo.OrderVo;
 
 /**
  * <p>
@@ -13,7 +12,7 @@ import com.isoft.pojo.vo.OrderVo;
 
 
  */
-public interface OrdersService extends IService<Orders> {
+public interface InfosService extends IService<Infos> {
 
-    Page<OrderVo> getCateList(long pagenum, long pagesize);
+	Page<Infos> getInfoList(long pagenum, long pagesize, Integer id);
 }

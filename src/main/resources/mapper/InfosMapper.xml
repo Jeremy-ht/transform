@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.InfosMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Infos">
+		<id column="id" property="id"/>
+		<result column="newstitle" property="newstitle"/>
+		<result column="newscontent" property="newscontent"/>
+		<result column="newshot" property="newshot"/>
+		<result column="author" property="author"/>
+		<result column="state" property="state"/>
+		<result column="createtime" property="createtime"/>
+		<result column="releasetime" property="releasetime"/>
+		<result column="newscover" property="newscover"/>
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+        id, newstitle, newscontent, newshot, author, state, createtime, releasetime, newscover
+    </sql>
+
+	<select id="getInfoList" resultType="com.isoft.pojo.entity.Infos">
+		SELECT
+			*
+		FROM
+			infos f
+		<where>
+			<if test="id == 1">
+				and f.state != 0
+			</if>
+			<if test="id != 1">
+				and f.state = 1
+			</if>
+		</where>
+		ORDER BY f.releasetime DESC
+	</select>
+
+
+</mapper>

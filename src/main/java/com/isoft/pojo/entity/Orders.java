@@ -16,7 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * 
  * </p>
  *
- * @author ${author}
+
 
  */
 @Data

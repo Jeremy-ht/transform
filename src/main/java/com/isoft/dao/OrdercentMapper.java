@@ -11,7 +11,7 @@ import java.util.List;
  *  Mapper 接口
  * </p>
  *
- * @author ${author}
+
 
  */
 public interface OrdercentMapper extends BaseMapper<Ordercent> {
