@@ -13,8 +13,8 @@ import org.apache.ibatis.annotations.Update;
  */
 public interface InfosMapper extends BaseMapper<Infos> {
 
-	@Update("update Infos set state = 1 where id = #{id} ")
-	int pullInfo(@Param("id") Integer id);
+	@Update("update Infos set state = #{state} where id = #{id} ")
+	int pullInfo(@Param("id") Integer id, @Param("state") Integer state);
 
-	Page<Infos> getInfoList(Page<Infos> page,@Param("id") Integer id);
+	Page<Infos> getInfoList(Page<Infos> page, @Param("id") Integer id);
 }

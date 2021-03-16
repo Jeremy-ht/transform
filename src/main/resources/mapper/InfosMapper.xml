@@ -27,10 +27,10 @@
 			infos f
 		<where>
 			<if test="id == 1">
-				and f.state != 0
-			</if>
-			<if test="id != 1">
 				and f.state = 1
+			</if>
+			<if test="id == 7">
+				and f.state = 7
 			</if>
 		</where>
 		ORDER BY f.releasetime DESC

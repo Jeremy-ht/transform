@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.TodayMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Today">
+		<id column="id" property="id"/>
+		<result column="creatime" property="creatime"/>
+		<result column="state" property="state"/>
+		<result column="content" property="content"/>
+		<result column="author" property="author"/>
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+        id, creatime, state, content, author
+    </sql>
+
+
+	<select id="getInfoList" resultType="com.isoft.pojo.entity.Today">
+        SELECT
+          *
+        FROM
+        today f
+        where f.state = 1
+        ORDER BY f.creatime DESC
+    </select>
+
+</mapper>

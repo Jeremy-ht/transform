@@ -42,17 +42,18 @@ public class InfosController {
 
 
 	// 发布
-	@GetMapping("/pullInfo/{id}")
-	public ResponseData pullInfo(@PathVariable("id") Integer id) {
-		return infosMapper.pullInfo(id) == 1 ? ResponseData.success().message("发布成功!")
+	@GetMapping("/pullInfo/{id}/{state}")
+	public ResponseData pullInfo(@PathVariable("id") Integer id,
+								 @PathVariable("state") Integer state) {
+		return infosMapper.pullInfo(id, state) == 1 ? ResponseData.success().message("发布成功!")
 				: ResponseData.error().message("发布失败!");
 	}
 
 	// 查询 1-所有
 	@GetMapping("/getInfoList/{categoryId}")
 	public ResponseData getInfoList(@RequestParam(name = "pagenum", defaultValue = "1", required = false) long pagenum,
-									   @RequestParam(name = "pagesize", defaultValue = "10", required = false) long pagesize,
-									   @PathVariable("categoryId") Integer id) {
+									@RequestParam(name = "pagesize", defaultValue = "10", required = false) long pagesize,
+									@PathVariable("categoryId") Integer id) {
 
 		Page<Infos> page = infosService.getInfoList(pagenum, pagesize, id);
 		if (page != null) {

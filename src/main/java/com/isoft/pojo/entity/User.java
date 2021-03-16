@@ -69,5 +69,6 @@ public class User implements Serializable {
     private String cph;
     private String color;
     private String carimage;
+    private Integer jf;
 
 }
