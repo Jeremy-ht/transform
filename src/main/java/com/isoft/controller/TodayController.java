@@ -76,6 +76,21 @@ public class TodayController {
 		return ResponseData.error().message("获取失败！");
 	}
 
+	// 查询 1-所有
+//	@GetMapping("/getTodayListTodayist")
+//	public ResponseData getTodayListTodayist(@RequestParam(name = "pagenum", defaultValue = "1", required = false) long pagenum,
+//									 @RequestParam(name = "pagesize", defaultValue = "10", required = false) long pagesize) {
+//
+//		Page<Today> page = todayService.getInfoList(pagenum, pagesize);
+//		if (page != null) {
+//			Map<String, Object> map = new HashMap<>();
+//			map.put("total", page.getTotal());
+//			map.put("data", page.getRecords());
+//			return ResponseData.success().message("获取成功！").data(map);
+//		}
+//		return ResponseData.error().message("获取失败！");
+//	}
+
 
 }
 

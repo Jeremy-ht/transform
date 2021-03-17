@@ -24,11 +24,11 @@
 
     <select id="selCateList" resultType="com.isoft.pojo.entity.User">
         SELECT
-           id, uname, loginway, sex, image, phone, email, creatime,state
+          *
         FROM
             user
         WHERE
-            state = 1 or state = 2
+            state = 1
         ORDER BY
 	       	creatime DESC
     </select>

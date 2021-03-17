@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class InfosController {
 	// 删除
 	@GetMapping("/delInfo/{id}")
 	public ResponseData delInfo(@PathVariable("id") Integer id) {
-		return infosService.removeById(id) ? ResponseData.success().message("删除成功!")
+		return infosMapper.upd(id) == 1 ? ResponseData.success().message("删除成功!")
 				: ResponseData.error().message("删除失败!");
 	}
 
@@ -45,7 +46,8 @@ public class InfosController {
 	@GetMapping("/pullInfo/{id}/{state}")
 	public ResponseData pullInfo(@PathVariable("id") Integer id,
 								 @PathVariable("state") Integer state) {
-		return infosMapper.pullInfo(id, state) == 1 ? ResponseData.success().message("发布成功!")
+
+		return infosMapper.pullInfo(id, state, LocalDateTime.now()) == 1 ? ResponseData.success().message("发布成功!")
 				: ResponseData.error().message("发布失败!");
 	}
 

@@ -22,6 +22,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(MetaObject metaObject) {
-
+        this.setInsertFieldValByName("releasetime", LocalDateTime.now(), metaObject);
     }
 }
