@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -165,6 +166,19 @@ public class UserController {
 			return ResponseData.success().message("获取用户列表成功！").data(map);
 		}
 		return ResponseData.error().message("获取用户列表失败！");
+	}
+
+
+	/**
+	 * 获取user列表    分页+查询
+	 */
+	@GetMapping("/getUserListAll")
+	public ResponseData getUserListAll() {
+
+		List<User> user = userService.list(new QueryWrapper<User>()
+				.eq("state", 1)
+				.orderByDesc("creatime"));
+		return ResponseData.success().message("查询用户成功!").data("data", user);
 	}
 
 

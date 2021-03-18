@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoft.dao.WzMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.isoft.pojo.entity.Wz">
+        <id column="id" property="id" />
+        <result column="userid" property="userid" />
+        <result column="content" property="content" />
+        <result column="creatime" property="creatime" />
+        <result column="state" property="state" />
+        <result column="jf" property="jf" />
+        <result column="author" property="author" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userid, content, creatime, state, jf, author
+    </sql>
+
+    <select id="getInfoList" resultType="com.isoft.pojo.entity.Wz">
+        SELECT
+          *
+        FROM
+        wz f
+        <where>
+            <if test="id != 0">
+                and f.userid = #{id}
+            </if>
+            and f.state = 1
+        </where>
+        ORDER BY f.creatime DESC
+    </select>
+</mapper>
