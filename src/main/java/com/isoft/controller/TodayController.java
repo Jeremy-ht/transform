@@ -24,7 +24,7 @@ import java.util.Map;
  * 前端控制器
  * </p>
  */
-@Controller
+@RestController
 @RequestMapping("/today")
 public class TodayController {
 

@@ -18,11 +18,13 @@
         id, userid, content, creatime, state, jf, author
     </sql>
 
-    <select id="getInfoList" resultType="com.isoft.pojo.entity.Wz">
+    <select id="getInfoList" resultType="com.isoft.pojo.vo.WzVo">
         SELECT
-          *
+          *,
+          u.uname username,
+          u.jf waitjf
         FROM
-        wz f
+        wz f join user u on u.id = f.userid
         <where>
             <if test="id != 0">
                 and f.userid = #{id}

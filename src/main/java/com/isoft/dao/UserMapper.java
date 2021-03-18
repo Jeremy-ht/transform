@@ -28,4 +28,7 @@ public interface UserMapper extends BaseMapper<User> {
     @Update("update user set pwd = #{newPas} where id = #{id} ")
     int updPwdById(@Param("id") Integer id,
                    @Param("newPas") String newPas);
+
+    @Update("update user set jf = #{jf} where id = #{id} ")
+    int updJF(@Param("id")Integer userid,@Param("jf") Integer jf);
 }
