@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/info")
-@Api(tags = "家政人员管理")
 public class InfoController {
 
 	@Autowired
@@ -69,9 +68,7 @@ public class InfoController {
 	}
 
 
-	/**
-	 * 获取家政人员具体信息
-	 */
+
 	@GetMapping("/getInfoDeatilById/{id}")
 	public ResponseData getInfoDeatilById(@PathVariable("id") Integer id) {
 
@@ -87,13 +84,6 @@ public class InfoController {
 		return ResponseData.success().data(map);
 	}
 
-	/**
-	 *
-	 * @param pagenum
-	 * @param pagesize
-	 * @param id 分类id
-	 * @return
-	 */
 	@GetMapping("/getInfoList/{id}")
 	public ResponseData getInfoList(@RequestParam(name = "pagenum", defaultValue = "1", required = false) long pagenum,
 									   @RequestParam(name = "pagesize", defaultValue = "100", required = false) long pagesize,
@@ -125,10 +115,6 @@ public class InfoController {
 
 	}
 
-
-	/**
-	 * 统计 预约
-	 */
 	@GetMapping("/getEchartsYY")
 	public ResponseData getEchartsYY() {
 		List<EchartsVo> list = detailService.getEchartsYY();
@@ -144,9 +130,7 @@ public class InfoController {
 
 	}
 
-	/**
-	 * 统计 人员
-	 */
+
 	@GetMapping("/getEchartsUser")
 	public ResponseData getEchartsUser() {
 		List<EchartsVo> list = detailService.getEchartsUser();
@@ -161,9 +145,6 @@ public class InfoController {
 		return ResponseData.success().message("获取数据成功！").data("data", ii);
 	}
 
-	/**
-	 * 统计 家政
-	 */
 	@GetMapping("/getEchartsInfo")
 	public ResponseData getEchartsInfo() {
 		List<EchartsVo> list = detailService.getEchartsInfo();
@@ -178,9 +159,7 @@ public class InfoController {
 		return ResponseData.success().message("获取数据成功！").data("data", ii);
 	}
 
-	/**
-	 * 统计 家政
-	 */
+
 	@GetMapping("/getEchartsSex")
 	public ResponseData getEchartsSex() {
 		int sex0 = userService.count(new QueryWrapper<User>()

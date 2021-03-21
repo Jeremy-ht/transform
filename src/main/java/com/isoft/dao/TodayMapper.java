@@ -3,6 +3,7 @@ package com.isoft.dao;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.isoft.pojo.entity.Today;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDate;
@@ -20,6 +21,8 @@ public interface TodayMapper extends BaseMapper<Today> {
 
 	Page<Today> getInfoList(Page<Today> page);
 
-	@Select("")
-	List<Today> getTodayListToday(LocalDate now);
+
+	List<Today> getTodayListToday(@Param("year") int year,
+								  @Param("month")int month,
+								  @Param("day")int day);
 }

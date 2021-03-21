@@ -181,6 +181,12 @@ public class UserController {
 		return ResponseData.success().message("查询用户成功!").data("data", user);
 	}
 
+	@GetMapping("/getJfUser/{userId}")
+	public ResponseData getJfUser(@PathVariable("userId") String userId) {
+		User byId = userService.getById(userId);
+		return ResponseData.success().message("查询用户成功!").data("data", byId);
+	}
+
 
 	/**
 	 * 搜索

@@ -15,36 +15,35 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
- *
-
-
  */
 @Service
 public class TodayServiceImpl extends ServiceImpl<TodayMapper, Today> implements TodayService {
 
-	@Autowired
-	private TodayMapper todayMapper;
+    @Autowired
+    private TodayMapper todayMapper;
 
 
+    @Override
+    public Page<Today> getInfoList(long pagenum, long pagesize) {
+        Page<Today> page = new Page<>(pagenum, pagesize);
+        try {
+            Page<Today> p = todayMapper.getInfoList(page);
+            return p;
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("getInfoList：错误" + e);
+            return null;
+        }
+    }
 
-	@Override
-	public Page<Today> getInfoList(long pagenum, long pagesize ) {
-		Page<Today> page = new Page<>(pagenum, pagesize);
-		try {
-			Page<Today> p = todayMapper.getInfoList(page);
-			return p;
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("getInfoList：错误" + e);
-			return null;
-		}
-	}
+    @Override
+    public List<Today> getTodayListToday() {
+        int year = LocalDate.now().getYear();
+        int monthValue = LocalDate.now().getMonthValue();
+        int dayOfMonth = LocalDate.now().getDayOfMonth();
 
-	@Override
-	public List<Today> getTodayListToday() {
-		LocalDate now = LocalDate.now();
-		return todayMapper.getTodayListToday(now);
-	}
+        return todayMapper.getTodayListToday(year,monthValue,dayOfMonth);
+    }
 }

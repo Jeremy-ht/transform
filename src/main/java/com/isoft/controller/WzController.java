@@ -56,20 +56,21 @@ public class WzController {
     }
 
 
-    @GetMapping("/updWZ/{id}")
-    public ResponseData updWZ(@PathVariable("id") Integer id) {
+    @GetMapping("/updWZ/{userid}/{id}")
+    public ResponseData updWZ(@PathVariable("userid") Integer userid,
+                              @PathVariable("id") Integer id) {
 
-        User user = userMapper.selectById(id);
+        User user = userMapper.selectById(userid);
         if (user == null) {
             return ResponseData.error().message("没有此用户!");
         }
         Wz byId = wzService.getById(id);
-        userMapper.updJF(id, user.getJf() - byId.getJf());
+        userMapper.updJF(userid, user.getJf() - byId.getJf());
 
         wzMapper.upd(id);
 
-        return wzService.removeById(id) ? ResponseData.success().message("删除成功!")
-                : ResponseData.error().message("删除失败!");
+        return wzMapper.upd(id) == 1 ? ResponseData.success().message("成功!")
+                : ResponseData.error().message("失败!");
     }
 
 

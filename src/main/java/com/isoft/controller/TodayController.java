@@ -76,6 +76,14 @@ public class TodayController {
 		return ResponseData.error().message("获取失败！");
 	}
 
+	@GetMapping("/getInfoDeatilById/{id}")
+	public ResponseData getInfoDeatilById(@PathVariable("id") Integer id) {
+
+		Today today = todayService.getById(id);
+
+		return ResponseData.success().data("data",today);
+	}
+
 	// 查询 1-所有
 //	@GetMapping("/getTodayListTodayist")
 //	public ResponseData getTodayListTodayist(@RequestParam(name = "pagenum", defaultValue = "1", required = false) long pagenum,

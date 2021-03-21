@@ -26,4 +26,24 @@
         ORDER BY f.creatime DESC
     </select>
 
+	<select id="getTodayListToday" resultType="com.isoft.pojo.entity.Today">
+		select * from today where id in
+			(
+					SELECT
+				t.id
+				FROM
+					(
+						SELECT
+							MONTH ( a.creatime ) AS monthNo,
+							YEAR ( a.creatime ) AS myYear,
+							DAY( a.creatime ) AS myDay,
+							a.id AS id
+						FROM
+							today a
+					) AS t
+				WHERE
+					t.myYear = #{year} and t.monthNo = #{month} and t.myDay = #{day}
+			)
+    </select>
+
 </mapper>

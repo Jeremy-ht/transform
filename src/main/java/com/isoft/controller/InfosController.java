@@ -1,9 +1,12 @@
 package com.isoft.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.isoft.dao.InfosMapper;
+import com.isoft.pojo.entity.Info;
 import com.isoft.pojo.entity.Infos;
+import com.isoft.pojo.entity.Skills;
 import com.isoft.service.InfosService;
 import com.isoft.utils.ResponseData;
 import io.swagger.annotations.Api;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -65,6 +69,15 @@ public class InfosController {
 			return ResponseData.success().message("获取成功！").data(map);
 		}
 		return ResponseData.error().message("获取失败！");
+	}
+
+
+	@GetMapping("/getInfoDeatilById/{id}")
+	public ResponseData getInfoDeatilById(@PathVariable("id") Integer id) {
+
+		Infos info = infosService.getById(id);
+
+		return ResponseData.success().data("data",info);
 	}
 
 }
