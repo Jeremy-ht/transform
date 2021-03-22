@@ -90,5 +90,10 @@ public class WzController {
         return ResponseData.error().message("获取失败！");
     }
 
+//    // 查询 0-所有
+//    @GetMapping("/getWzList/{userId}")
+//    public ResponseData getWzList(){
+//        return ResponseData.success().message("获取成功！").data(map);
+//    }
 }
 
